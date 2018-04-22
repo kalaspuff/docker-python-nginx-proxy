@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-NAME="kalaspuff/tomodachi-nginx"
+NAME="kalaspuff/python-nginx-proxy"
 TAG=`cat VERSION | xargs`
 
 docker push $NAME:$TAG

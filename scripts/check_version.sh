@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-NAME="kalaspuff/tomodachi-nginx"
+NAME="kalaspuff/python-nginx-proxy"
 TAG=`cat VERSION | xargs`
 
 EXISTS=`docker 2>&1 pull $NAME:$TAG | grep 'Digest: '`

@@ -7,7 +7,7 @@ else
 fi
 
 EXPERIMENTAL=`docker info |grep Experimental|sed 's/Experimental: //' | xargs`
-NAME="kalaspuff/tomodachi-nginx"
+NAME="kalaspuff/python-nginx-proxy"
 
 EXTRAOPTIONS=""
 if [[ $EXPERIMENTAL != "" ]]; then
