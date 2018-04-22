@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -e /run/docker_services ]; then
+    service nginx start > /dev/null 2> /dev/null
+    touch /run/docker_services
+fi
+if [ $1 ]; then
+    "${@}"
+fi
