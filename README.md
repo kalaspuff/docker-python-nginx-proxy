@@ -1,4 +1,4 @@
-# docker-tomodachi-nginx
+# kalaspuff/python-nginx-proxy docker image
 Docker base image using nginx proxy to service backend on port 8080.
 
 GitHub: https://github.com/kalaspuff/docker-python-nginx-proxy
