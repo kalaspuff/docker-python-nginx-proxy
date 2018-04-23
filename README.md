@@ -27,7 +27,7 @@ CMD start-service <...>
 ```
 
 
-# Package / tools versions
+## Package / tools versions
 
 | Software | Version  | Extra                                |
 | -------- | -------- | ------------------------------------ |
