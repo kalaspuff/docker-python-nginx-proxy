@@ -25,3 +25,14 @@ FROM kalaspuff/python-nginx-proxy:1.0.0
 ...
 CMD start-service <...>
 ```
+
+
+# Package / tools versions
+
+| Software | Version  | Extra                                |
+| -------- | -------- | ------------------------------------ |
+| Python   | 3.6.5    |                                      |
+| nginx    | 1.14.0   |                                      |
+| Debian   | stretch  | Image based on `debian:stretch-slim` |
+
+Also included are the Debian packages for `git`, `curl`, `vim`, `ps`, `nano`, `netcat`, `netstat` and `unzip`.
