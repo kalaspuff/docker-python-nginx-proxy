@@ -8,7 +8,8 @@ To make nginx service start when running the Docker container, make sure
 to start the CMD section with `start-service`.
 
 The base-image will expose port 80, where nginx is configured to forward
-to your running code on port 8080.
+to your running code on port 8080. WebSockets may be used on the HTTP routes
+`/ws/*` and/or `/websocket/*`
 
 
 ### Pull from registry
@@ -19,6 +20,8 @@ $ docker pull kalaspuff/python-nginx-proxy
 
 
 ### Use in Dockerfile
+
+_It's important to invoke the CMD section with `start-service`._
 
 ```
 FROM kalaspuff/python-nginx-proxy:1.0.0
