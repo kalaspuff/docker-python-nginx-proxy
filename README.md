@@ -1,5 +1,5 @@
 # kalaspuff/python-nginx-proxy – docker image
-Docker base image using nginx proxy to backend on port 8080.
+Docker base-image using nginx proxy to backend on port 8080.
 
 * GitHub: https://github.com/kalaspuff/docker-python-nginx-proxy
 * DockerHub: https://hub.docker.com/r/kalaspuff/python-nginx-proxy/
@@ -7,7 +7,7 @@ Docker base image using nginx proxy to backend on port 8080.
 To make nginx service start when running the Docker container, make sure
 to start the CMD section with `start-service`.
 
-The base image will expose port 80, where nginx is configured to forward
+The base-image will expose port 80, where nginx is configured to forward
 to your running code on port 8080.
 
 
