@@ -61,7 +61,7 @@ RUN pip install --upgrade pip==10.0.1
 
 ADD utils/nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD utils/init.d/nginx /etc/init.d/nginx
-ADD bashrc/bashrc /root/.bashrc
+ADD utils/bashrc/bashrc /root/.bashrc
 ADD utils/vimrc/vimrc /etc/vim/vimrc
 ADD utils/vimrc/vimrc /root/.vimrc
 ADD utils/sshconfig/config /root/.ssh/config
