@@ -88,4 +88,4 @@ RUN apt-get purge -y --auto-remove \
 
 ENTRYPOINT [ "start-service" ]
 
-CMD "/bin/bash"
+CMD /bin/bash
