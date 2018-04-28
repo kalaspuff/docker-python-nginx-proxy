@@ -21,7 +21,7 @@ RUN apt-get -y update && apt-get install -y \
     zlib1g-dev=1:1.2.8.dfsg-5 \
     libssl-dev=1.1.0f-3+deb9u2 \
     libreadline-dev=7.0-3 \
-    libncurses-dev=6.0+20161126-1+deb9u2 \
+    libncurses5-dev=6.0+20161126-1+deb9u2 \
     libffi-dev=3.2.1-6 \
     dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
     build-essential=12.3
@@ -79,7 +79,7 @@ RUN apt-get purge -y --auto-remove \
     zlib1g-dev \
     libssl-dev \
     libreadline-dev \
-    libncurses-dev \
+    libncurses5-dev \
     libffi-dev \
     dnsutils \
     && apt-get clean autoclean \
@@ -87,3 +87,5 @@ RUN apt-get purge -y --auto-remove \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 ENTRYPOINT [ "start-service" ]
+
+CMD "/bin/bash"
