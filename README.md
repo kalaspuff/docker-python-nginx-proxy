@@ -46,7 +46,18 @@ Also included are the Debian packages for `git`, `curl`, `vim`, `ps`, `nano`, `n
  as a volume for external access.
 
 
- ---
+---
+
+### Build Docker image
+
+The latest versions are already pushed to the Docker registry for use. If you want to 
+build the image yourself run:
+
+```
+$ make build
+```
+
+---
 
 ### Example
 
