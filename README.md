@@ -21,12 +21,39 @@ $ docker pull kalaspuff/python-nginx-proxy
 
 ### Use in Dockerfile
 
-_It's important to invoke the CMD section with `start-service`._
+_ENTRYPOINT for images build from this base-image will use the custom-built `start-service` script._
 
 ```
-FROM kalaspuff/python-nginx-proxy:1.0.0
+FROM kalaspuff/python-nginx-proxy:1.1.0
 ...
-CMD start-service <...>
+```
+
+---
+
+### Example
+
+*Starting docker container*
+
+```
+$ docker run -p 4711:80 -ti kalaspuff/python-nginx-proxy:1.1.0 start-service nc -lp 8080
+```
+
+*curl*
+
+```
+$ curl http:/127.0.0.1:4711/
+```
+
+*output*
+```
+GET / HTTP/1.0
+Host: 127.0.0.1
+X-Real-IP: 172.17.0.1
+X-Forwarded-For: 172.17.0.1
+X-Forwarded-Proto: http
+Connection: close
+User-Agent: curl/7.54.0
+Accept: */*
 ```
 
 
