@@ -20,6 +20,9 @@ RUN apt-get -y update && apt-get install -y \
     libpcre3-dev=2:8.39-3 \
     zlib1g-dev=1:1.2.8.dfsg-5 \
     libssl-dev=1.1.0f-3+deb9u2 \
+    libreadline-dev=7.0-3 \
+    libncurses-dev=6.0+20161126-1+deb9u2 \
+    libffi-dev=3.2.1-6 \
     dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
     build-essential=12.3
 
@@ -39,7 +42,8 @@ RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.6.5/Python
     && ./configure --enable-optimizations --with-lto \
     && make \
     && make install \
-    && rm -rf /tmp/python /tmp/python.tar.gz
+    && rm -rf /tmp/python /tmp/python.tar.gz \
+    && rm -rf /usr/local/lib/python3.6/test /usr/local/lib/python3.6/config-3.6m-x86_64-linux-gnu
 
 RUN ln -s /usr/local/bin/python3 /usr/local/bin/python \
     && ln -s /usr/local/bin/python3 /usr/bin/python \
@@ -57,7 +61,9 @@ RUN pip install --upgrade pip==10.0.1
 
 ADD utils/nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD utils/init.d/nginx /etc/init.d/nginx
+ADD bashrc/bashrc /root/.bashrc
 ADD utils/vimrc/vimrc /etc/vim/vimrc
+ADD utils/vimrc/vimrc /root/.vimrc
 ADD utils/sshconfig/config /root/.ssh/config
 ADD utils/utils/start-service /bin/start-service
 RUN chmod +x /etc/init.d/nginx /bin/start-service
@@ -72,6 +78,9 @@ RUN apt-get purge -y --auto-remove \
     libpcre3-dev \
     zlib1g-dev \
     libssl-dev \
+    libreadline-dev \
+    libncurses-dev \
+    libffi-dev \
     dnsutils \
     && apt-get clean autoclean \
     && apt-get autoremove -y \

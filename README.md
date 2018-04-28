@@ -28,34 +28,6 @@ FROM kalaspuff/python-nginx-proxy:1.1.0
 ...
 ```
 
----
-
-### Example
-
-*Starting docker container*
-
-```
-$ docker run -p 4711:80 -ti kalaspuff/python-nginx-proxy:1.1.0 start-service nc -lp 8080
-```
-
-*curl*
-
-```
-$ curl http:/127.0.0.1:4711/
-```
-
-*output*
-```
-GET / HTTP/1.0
-Host: 127.0.0.1
-X-Real-IP: 172.17.0.1
-X-Forwarded-For: 172.17.0.1
-X-Forwarded-Proto: http
-Connection: close
-User-Agent: curl/7.54.0
-Accept: */*
-```
-
 
 ## Package / tools versions
 
@@ -66,3 +38,38 @@ Accept: */*
 | Debian   | stretch  | Image based on `debian:stretch-slim` |
 
 Also included are the Debian packages for `git`, `curl`, `vim`, `ps`, `nano`, `netcat`, `netstat` and `unzip`.
+
+
+## Logging
+
+`nginx` is configured to store logs in the `/logs/` directory which could be mounted
+ as a volume for external access.
+
+
+ ---
+
+### Example
+
+*Starting docker container with netcat listening on port 8080*
+
+```
+$ docker run -p 4711:80 -ti kalaspuff/python-nginx-proxy:1.1.0 start-service nc -lp 8080
+```
+
+*curl to connect to container forwarded to nginx proxy at port 80*
+
+```
+$ curl http:/localhost:4711/
+```
+
+*Output from netcat on container*
+```
+GET / HTTP/1.0
+Host: localhost
+X-Real-IP: 172.17.0.1
+X-Forwarded-For: 172.17.0.1
+X-Forwarded-Proto: http
+Connection: close
+User-Agent: curl/7.54.0
+Accept: */*
+```
