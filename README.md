@@ -53,7 +53,7 @@ Also included are the Debian packages for `git`, `curl`, `vim`, `ps`, `nano`, `n
 *Starting docker container with netcat listening on port 8080*
 
 ```
-$ docker run -p 4711:80 -ti kalaspuff/python-nginx-proxy:1.1.0 start-service nc -lp 8080
+$ docker run -p 4711:80 -ti kalaspuff/python-nginx-proxy:1.1.0 nc -lp 8080
 ```
 
 *curl to connect to container forwarded to nginx proxy at port 80*
