@@ -2,7 +2,7 @@
 Docker base-image using nginx proxy to backend on port 8080.
 
 * GitHub: https://github.com/kalaspuff/docker-python-nginx-proxy
-* DockerHub: https://hub.docker.com/r/kalaspuff/python-nginx-proxy/
+* Docker Hub: https://hub.docker.com/r/kalaspuff/python-nginx-proxy/
 
 To make nginx service start when running the Docker container, make sure
 to start the CMD section with `start-service`.
