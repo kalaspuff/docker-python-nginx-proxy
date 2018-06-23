@@ -1,9 +1,33 @@
 #!/bin/bash
 
+trap signal 1 3 6 9 15
+
+signal()
+{
+    if [ $CHILD_PID ]; then
+        if [ ! $KILL_PID ]; then
+            KILL_PID=`pstree -p $CHILD_PID | head -n1 | sed 's/^\([^)]*[)]-[+-]-[^)]*[)]\).*$/\1/' | awk -F '[()]' '{ print $(NF-1) }'`
+            kill $KILL_PID > /dev/null 2> /dev/null
+        fi
+        wait $CHILD_PID > /dev/null 2> /dev/null
+    fi
+}
+
 if [ ! -e /run/docker_services ]; then
     service nginx start > /dev/null 2> /dev/null
     touch /run/docker_services
 fi
+
 if [ $1 ]; then
-    "${@}"
+    CMD=`which $1`
+    if [[ "$CMD" == "/bin/sh" ]] && [[ "$2" == "-c" ]]; then
+        CMD=`which $3`
+    fi
+    if [[ "$CMD" == "/bin/bash" ]] || [[ "$CMD" == "/bin/sh" ]]; then
+        "${@}"
+    else
+        "${@}" &
+        CHILD_PID=$!
+        wait $CHILD_PID > /dev/null 2> /dev/null
+    fi
 fi
