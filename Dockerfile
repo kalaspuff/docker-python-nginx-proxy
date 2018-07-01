@@ -13,16 +13,29 @@ RUN apt-get -y update && apt-get install -y \
     vim=2:8.0.0197-4+deb9u1 \
     nano=2.7.4-1 \
     netcat=1.10-41 \
+    libreadline7=7.0-3 \
+    libgdbm3=1.8.3-14 \
+    libexpat1=2.2.0-2+deb9u1 \
     net-tools=1.60+git20161116.90da8a0-1 \
-    git=1:2.11.0-3+deb9u2
+    git=1:2.11.0-3+deb9u2 \
+    ca-certificates=20161130+nmu1
 
 RUN apt-get -y update && apt-get install -y \
     libpcre3-dev=2:8.39-3 \
     zlib1g-dev=1:1.2.8.dfsg-5 \
     libssl-dev=1.1.0f-3+deb9u2 \
     libreadline-dev=7.0-3 \
+    libncursesw5-dev=6.0+20161126-1+deb9u2 \
     libncurses5-dev=6.0+20161126-1+deb9u2 \
     libffi-dev=3.2.1-6 \
+    libbz2-dev=1.0.6-8.1 \
+    liblzma-dev=5.2.2-1.2+b1 \
+    libexpat1-dev=2.2.0-2+deb9u1 \
+    libgdbm-dev=1.8.3-14 \
+    tcl-dev=8.6.0+9 \
+    tk-dev=8.6.0+9 \
+    gnupg=2.1.18-8~deb9u2 \
+    dirmngr=2.1.18-8~deb9u2 \
     dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
     build-essential=12.3
 
@@ -42,6 +55,7 @@ RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.7.0/Python
     && ./configure --enable-optimizations --with-lto \
     && make \
     && make install \
+    && ldconfig \
     && rm -rf /tmp/python /tmp/python.tar.gz \
     && rm -rf /usr/local/lib/python3.7/test /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu
 
@@ -55,7 +69,11 @@ RUN ln -s /usr/local/bin/python3 /usr/local/bin/python \
     && ln -s /usr/local/bin/pip3 /usr/local/bin/pip \
     && ln -s /usr/local/bin/pip3 /usr/bin/pip \
     && ln -s /usr/local/bin/pip3 /usr/bin/pip3 \
-    && ln -s /usr/local/bin/pip3 /usr/bin/pip3.7
+    && ln -s /usr/local/bin/pip3 /usr/bin/pip3.7 \
+    && ln -s /usr/local/bin/idle3 /usr/local/bin/idle \
+    && ln -s /usr/local/bin/idle3 /usr/bin/idle \
+    && ln -s /usr/local/bin/idle3 /usr/bin/idle3 \
+    && ln -s /usr/local/bin/idle3 /usr/bin/idle3.7
 
 RUN pip install --upgrade pip==10.0.1
 
@@ -81,6 +99,14 @@ RUN apt-get purge -y --auto-remove \
     libreadline-dev \
     libncurses5-dev \
     libffi-dev \
+    libbz2-dev \
+    liblzma-dev \
+    libexpat1-dev \
+    libgdbm-dev \
+    tcl-dev \
+    tk-dev \
+    gnupg \
+    dirmngr \
     dnsutils \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
