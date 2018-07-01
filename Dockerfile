@@ -35,27 +35,27 @@ RUN curl -L -o /tmp/nginx.tar.gz https://nginx.org/download/nginx-1.14.0.tar.gz 
     && make install \
     && rm -rf /tmp/nginx /tmp/nginx.tar.gz
 
-RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
+RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz \
     && tar -zxf /tmp/python.tar.gz -C /tmp/ \
-    && mv /tmp/Python-3.6.5 /tmp/python \
+    && mv /tmp/Python-3.7.0 /tmp/python \
     && cd /tmp/python \
     && ./configure --enable-optimizations --with-lto \
     && make \
     && make install \
     && rm -rf /tmp/python /tmp/python.tar.gz \
-    && rm -rf /usr/local/lib/python3.6/test /usr/local/lib/python3.6/config-3.6m-x86_64-linux-gnu
+    && rm -rf /usr/local/lib/python3.7/test /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu
 
 RUN ln -s /usr/local/bin/python3 /usr/local/bin/python \
     && ln -s /usr/local/bin/python3 /usr/bin/python \
     && ln -s /usr/local/bin/python3 /usr/bin/python3 \
-    && ln -s /usr/local/bin/python3 /usr/bin/python3.6 \
+    && ln -s /usr/local/bin/python3 /usr/bin/python3.7 \
     && ln -s /usr/local/bin/python3-config /usr/local/bin/python-config \
     && ln -s /usr/local/bin/python3-config /usr/bin/python-config \
     && ln -s /usr/local/bin/python3-config /usr/bin/python3-config \
     && ln -s /usr/local/bin/pip3 /usr/local/bin/pip \
     && ln -s /usr/local/bin/pip3 /usr/bin/pip \
     && ln -s /usr/local/bin/pip3 /usr/bin/pip3 \
-    && ln -s /usr/local/bin/pip3 /usr/bin/pip3.6
+    && ln -s /usr/local/bin/pip3 /usr/bin/pip3.7
 
 RUN pip install --upgrade pip==10.0.1
 
