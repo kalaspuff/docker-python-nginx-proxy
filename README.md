@@ -15,17 +15,19 @@ to your running code on port 8080. WebSockets may be used on the HTTP routes
 ### Pull from registry
 
 ```
-$ docker pull kalaspuff/python-nginx-proxy
+$ docker pull kalaspuff/python-nginx-proxy:1.2.0
 ```
 
 
 ### Use in Dockerfile
 
 _ENTRYPOINT for images build from this base-image will use the custom-built `start-service` script._
+Just use _CMD_ to run your service process. nginx will be started daemonized.
 
-```
-FROM kalaspuff/python-nginx-proxy:1.1.0
+```dockerfile
+FROM kalaspuff/python-nginx-proxy:1.2.0
 ...
+CMD python my_service_application.py
 ```
 
 
@@ -33,7 +35,7 @@ FROM kalaspuff/python-nginx-proxy:1.1.0
 
 | Software | Version  | Extra                                |
 | -------- | -------- | ------------------------------------ |
-| Python   | 3.6.5    |                                      |
+| Python   | 3.7.0    |                                      |
 | nginx    | 1.14.0   |                                      |
 | Debian   | stretch  | Image based on `debian:stretch-slim` |
 
