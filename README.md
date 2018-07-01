@@ -15,7 +15,7 @@ to your running code on port 8080. WebSockets may be used on the HTTP routes
 ### Pull from registry
 
 ```
-$ docker pull kalaspuff/python-nginx-proxy:1.2.0
+$ docker pull kalaspuff/python-nginx-proxy
 ```
 
 
