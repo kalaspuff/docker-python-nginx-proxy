@@ -7,7 +7,7 @@ WORKDIR /
 RUN mkdir /logs
 
 RUN apt-get -y update && apt-get install -y \
-    procps=2:3.3.12-3 \
+    procps=2:3.3.12-3+deb9u1 \
     curl=7.52.1-5+deb9u6 \
     unzip=6.0-21 \
     vim=2:8.0.0197-4+deb9u1 \
@@ -17,8 +17,8 @@ RUN apt-get -y update && apt-get install -y \
     libgdbm3=1.8.3-14 \
     libexpat1=2.2.0-2+deb9u1 \
     net-tools=1.60+git20161116.90da8a0-1 \
-    git=1:2.11.0-3+deb9u2 \
-    ca-certificates=20161130+nmu1
+    git=1:2.11.0-3+deb9u3 \
+    ca-certificates=20161130+nmu1+deb9u1
 
 RUN apt-get -y update && apt-get install -y \
     libpcre3-dev=2:8.39-3 \
