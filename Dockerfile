@@ -75,7 +75,7 @@ RUN ln -s /usr/local/bin/python3 /usr/local/bin/python \
     && ln -s /usr/local/bin/idle3 /usr/bin/idle3 \
     && ln -s /usr/local/bin/idle3 /usr/bin/idle3.7
 
-RUN pip install --upgrade pip==10.0.1
+RUN pip install --upgrade pip==18.0
 
 ADD utils/nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD utils/init.d/nginx /etc/init.d/nginx
