@@ -25,7 +25,7 @@ _ENTRYPOINT for images build from this base-image will use the custom-built `sta
 Just use _CMD_ to run your service process. nginx will be started daemonized.
 
 ```dockerfile
-FROM kalaspuff/python-nginx-proxy:1.2.1
+FROM kalaspuff/python-nginx-proxy:1.2.2
 ...
 CMD python my_service_application.py
 ```
@@ -35,8 +35,9 @@ CMD python my_service_application.py
 
 | Software | Version  | Extra                                |
 | -------- | -------- | ------------------------------------ |
-| Python   | 3.7.0    |                                      |
-| nginx    | 1.14.0   |                                      |
+| Python   | 3.7.1    |                                      |
+| nginx    | 1.14.1   |                                      |
+| protobuf | 3.6.1    |                                      |
 | Debian   | stretch  | Image based on `debian:stretch-slim` |
 
 Also included are the Debian packages for `git`, `curl`, `vim`, `ps`, `nano`, `netcat`, `netstat` and `unzip`.
@@ -52,7 +53,7 @@ Also included are the Debian packages for `git`, `curl`, `vim`, `ps`, `nano`, `n
 
 ### Build Docker image
 
-The latest versions are already pushed to the Docker registry for use. If you want to 
+The latest versions are already pushed to the Docker registry for use. If you want to
 build the image yourself run:
 
 ```
@@ -66,7 +67,7 @@ $ make build
 *Starting docker container with netcat listening on port 8080*
 
 ```
-$ docker run -p 4711:80 -ti kalaspuff/python-nginx-proxy:1.2.1 nc -lp 8080
+$ docker run -p 4711:80 -ti kalaspuff/python-nginx-proxy:1.2.2 nc -lp 8080
 ```
 
 *curl to connect to container forwarded to nginx proxy at port 80*

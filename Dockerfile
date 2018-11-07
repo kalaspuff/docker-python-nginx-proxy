@@ -39,18 +39,18 @@ RUN apt-get -y update && apt-get install -y \
     dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
     build-essential=12.3
 
-RUN curl -L -o /tmp/nginx.tar.gz https://nginx.org/download/nginx-1.14.0.tar.gz \
+RUN curl -L -o /tmp/nginx.tar.gz https://nginx.org/download/nginx-1.14.1.tar.gz \
     && tar -zxf /tmp/nginx.tar.gz -C /tmp/ \
-    && mv /tmp/nginx-1.14.0 /tmp/nginx \
+    && mv /tmp/nginx-1.14.1 /tmp/nginx \
     && cd /tmp/nginx \
     && ./configure --with-http_ssl_module --with-http_v2_module --with-http_realip_module \
     && make \
     && make install \
     && rm -rf /tmp/nginx /tmp/nginx.tar.gz
 
-RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz \
+RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tgz \
     && tar -zxf /tmp/python.tar.gz -C /tmp/ \
-    && mv /tmp/Python-3.7.0 /tmp/python \
+    && mv /tmp/Python-3.7.1 /tmp/python \
     && cd /tmp/python \
     && ./configure --enable-optimizations --with-lto \
     && make \
@@ -58,6 +58,20 @@ RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.7.0/Python
     && ldconfig \
     && rm -rf /tmp/python /tmp/python.tar.gz \
     && rm -rf /usr/local/lib/python3.7/test /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu
+
+RUN curl -L -o /tmp/protobuf.tar.gz https://github.com/protocolbuffers/protobuf/archive/v3.6.1.tar.gz \
+    && tar -zxf /tmp/protobuf.tar.gz -C /tmp/ \
+    && rm /tmp/protobuf.tar.gz \
+    && cd /tmp/protobuf-3.6.1 \
+    && ./autogen.sh \
+    && CXXFLAGS="-fno-delete-null-pointer-checks" ./configure --disable-shared \
+    && make \
+    && cp src/protoc /usr/local/bin/protoc \
+    && ln -s /usr/local/bin/protoc /usr/bin/protoc \
+    && cd src \
+    && mkdir -p /usr/local/include \
+    && find . -name *.proto -type f -exec tar -zcf proto-includes.tar.gz {} + \
+    && tar -zxf proto-includes.tar.gz -C /usr/local/include/
 
 RUN ln -s /usr/local/bin/python3 /usr/local/bin/python \
     && ln -s /usr/local/bin/python3 /usr/bin/python \
@@ -75,7 +89,7 @@ RUN ln -s /usr/local/bin/python3 /usr/local/bin/python \
     && ln -s /usr/local/bin/idle3 /usr/bin/idle3 \
     && ln -s /usr/local/bin/idle3 /usr/bin/idle3.7
 
-RUN pip install --upgrade pip==18.0
+RUN pip install --upgrade pip==18.1
 
 ADD utils/nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD utils/init.d/nginx /etc/init.d/nginx

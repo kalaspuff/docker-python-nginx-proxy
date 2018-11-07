@@ -19,11 +19,19 @@ if [ ! -e /run/docker_services ]; then
 fi
 
 if [ $1 ]; then
-    CMD=`which $1`
-    if [[ "$CMD" == "/bin/sh" ]] && [[ "$2" == "-c" ]]; then
-        CMD=`which $3`
+    WHICH_CMD=`which $1`
+    if [[ "$WHICH_CMD" == "/bin/sh" ]] && [[ "$2" == "-c" ]]; then
+        if [[ "$3" == "\""*"\"" ]]; then
+            WHICH_CMD=`echo -n $3 | sed 's/^\"//' | sed 's/\"$//'`
+            SPLIT_CMD=($WHICH_CMD)
+            WHICH_CMD=${SPLIT_CMD[0]}
+            WHICH_CMD=`which $WHICH_CMD`
+        else
+            WHICH_CMD=`echo -n $3 | sed 's/ .*//'`
+            WHICH_CMD=`which $WHICH_CMD`
+        fi
     fi
-    if [[ "$CMD" == "/bin/bash" ]] || [[ "$CMD" == "/bin/sh" ]]; then
+    if [[ "$WHICH_CMD" == "/bin/bash" ]] || [[ "$WHICH_CMD" == "/bin/sh" ]] || [[ "$WHICH_CMD" == "/usr/bin/screen" ]]; then
         "${@}"
     else
         "${@}" &
