@@ -37,6 +37,7 @@ RUN apt-get -y update && apt-get install -y \
     gnupg=2.1.18-8~deb9u2 \
     dirmngr=2.1.18-8~deb9u2 \
     dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
+    dh-autoreconf=14 \
     build-essential=12.3
 
 RUN curl -L -o /tmp/nginx.tar.gz https://nginx.org/download/nginx-1.14.1.tar.gz \
@@ -122,6 +123,7 @@ RUN apt-get purge -y --auto-remove \
     gnupg \
     dirmngr \
     dnsutils \
+    dh-autoreconf \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/
