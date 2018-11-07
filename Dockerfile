@@ -8,7 +8,7 @@ RUN mkdir /logs
 
 RUN apt-get -y update && apt-get install -y \
     procps=2:3.3.12-3+deb9u1 \
-    curl=7.52.1-5+deb9u6 \
+    curl=7.52.1-5+deb9u8 \
     unzip=6.0-21 \
     vim=2:8.0.0197-4+deb9u1 \
     nano=2.7.4-1 \
