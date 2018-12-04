@@ -17,13 +17,13 @@ RUN apt-get -y update && apt-get install -y \
     libgdbm3=1.8.3-14 \
     libexpat1=2.2.0-2+deb9u1 \
     net-tools=1.60+git20161116.90da8a0-1 \
-    git=1:2.11.0-3+deb9u3 \
+    git=1:2.11.0-3+deb9u4 \
     ca-certificates=20161130+nmu1+deb9u1
 
 RUN apt-get -y update && apt-get install -y \
     libpcre3-dev=2:8.39-3 \
     zlib1g-dev=1:1.2.8.dfsg-5 \
-    libssl-dev=1.1.0f-3+deb9u2 \
+    libssl-dev=1.1.0j-1~deb9u1 \
     libreadline-dev=7.0-3 \
     libncursesw5-dev=6.0+20161126-1+deb9u2 \
     libncurses5-dev=6.0+20161126-1+deb9u2 \
@@ -34,8 +34,8 @@ RUN apt-get -y update && apt-get install -y \
     libgdbm-dev=1.8.3-14 \
     tcl-dev=8.6.0+9 \
     tk-dev=8.6.0+9 \
-    gnupg=2.1.18-8~deb9u2 \
-    dirmngr=2.1.18-8~deb9u2 \
+    gnupg=2.1.18-8~deb9u3 \
+    dirmngr=2.1.18-8~deb9u3 \
     dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
     dh-autoreconf=14 \
     build-essential=12.3
