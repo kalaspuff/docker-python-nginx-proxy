@@ -40,9 +40,9 @@ RUN apt-get -y update && apt-get install -y \
     dh-autoreconf=14 \
     build-essential=12.3
 
-RUN curl -L -o /tmp/nginx.tar.gz https://nginx.org/download/nginx-1.14.1.tar.gz \
+RUN curl -L -o /tmp/nginx.tar.gz https://nginx.org/download/nginx-1.14.2.tar.gz \
     && tar -zxf /tmp/nginx.tar.gz -C /tmp/ \
-    && mv /tmp/nginx-1.14.1 /tmp/nginx \
+    && mv /tmp/nginx-1.14.2 /tmp/nginx \
     && cd /tmp/nginx \
     && ./configure --with-http_ssl_module --with-http_v2_module --with-http_realip_module \
     && make \
