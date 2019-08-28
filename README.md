@@ -38,6 +38,7 @@ CMD python my_service_application.py
 | Python   | 3.7.4    |                                      |
 | nginx    | 1.16.1   |                                      |
 | protobuf | 3.9.1    |                                      |
+| poetry   | 0.12.7   |                                      |
 | Debian   | stretch  | Image based on `debian:stretch-slim` |
 
 Also included are the Debian packages for `git`, `curl`, `vim`, `ps`, `nano`, `netcat`, `netstat` and `unzip`.
