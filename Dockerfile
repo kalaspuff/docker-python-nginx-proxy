@@ -1,4 +1,4 @@
-FROM debian:stretch-slim AS builder
+FROM debian:stretch-20190812-slim AS builder
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -8,9 +8,9 @@ RUN mkdir /logs
 
 RUN apt-get -y update && apt-get install -y \
     procps=2:3.3.12-3+deb9u1 \
-    curl=7.52.1-5+deb9u8 \
-    unzip=6.0-21 \
-    vim=2:8.0.0197-4+deb9u1 \
+    curl=7.52.1-5+deb9u9 \
+    unzip=6.0-21+deb9u1 \
+    vim=2:8.0.0197-4+deb9u3 \
     nano=2.7.4-1 \
     netcat=1.10-41 \
     libreadline7=7.0-3 \
@@ -23,7 +23,7 @@ RUN apt-get -y update && apt-get install -y \
 RUN apt-get -y update && apt-get install -y \
     libpcre3-dev=2:8.39-3 \
     zlib1g-dev=1:1.2.8.dfsg-5 \
-    libssl-dev=1.1.0j-1~deb9u1 \
+    libssl-dev=1.1.0k-1~deb9u1 \
     libreadline-dev=7.0-3 \
     libncursesw5-dev=6.0+20161126-1+deb9u2 \
     libncurses5-dev=6.0+20161126-1+deb9u2 \
@@ -34,24 +34,24 @@ RUN apt-get -y update && apt-get install -y \
     libgdbm-dev=1.8.3-14 \
     tcl-dev=8.6.0+9 \
     tk-dev=8.6.0+9 \
-    gnupg=2.1.18-8~deb9u3 \
-    dirmngr=2.1.18-8~deb9u3 \
-    dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
+    gnupg=2.1.18-8~deb9u4 \
+    dirmngr=2.1.18-8~deb9u4 \
+    dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u5 \
     dh-autoreconf=14 \
     build-essential=12.3
 
-RUN curl -L -o /tmp/nginx.tar.gz https://nginx.org/download/nginx-1.14.2.tar.gz \
+RUN curl -L -o /tmp/nginx.tar.gz https://nginx.org/download/nginx-1.16.1.tar.gz \
     && tar -zxf /tmp/nginx.tar.gz -C /tmp/ \
-    && mv /tmp/nginx-1.14.2 /tmp/nginx \
+    && mv /tmp/nginx-1.16.1 /tmp/nginx \
     && cd /tmp/nginx \
     && ./configure --with-http_ssl_module --with-http_v2_module --with-http_realip_module \
     && make \
     && make install \
     && rm -rf /tmp/nginx /tmp/nginx.tar.gz
 
-RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tgz \
+RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz \
     && tar -zxf /tmp/python.tar.gz -C /tmp/ \
-    && mv /tmp/Python-3.7.1 /tmp/python \
+    && mv /tmp/Python-3.7.4 /tmp/python \
     && cd /tmp/python \
     && ./configure --enable-optimizations --with-lto \
     && make \
@@ -60,10 +60,10 @@ RUN curl -L -o /tmp/python.tar.gz https://www.python.org/ftp/python/3.7.1/Python
     && rm -rf /tmp/python /tmp/python.tar.gz \
     && rm -rf /usr/local/lib/python3.7/test /usr/local/lib/python3.7/config-3.7m-x86_64-linux-gnu
 
-RUN curl -L -o /tmp/protobuf.tar.gz https://github.com/protocolbuffers/protobuf/archive/v3.6.1.tar.gz \
+RUN curl -L -o /tmp/protobuf.tar.gz https://github.com/protocolbuffers/protobuf/archive/v3.9.1.tar.gz \
     && tar -zxf /tmp/protobuf.tar.gz -C /tmp/ \
     && rm /tmp/protobuf.tar.gz \
-    && cd /tmp/protobuf-3.6.1 \
+    && cd /tmp/protobuf-3.9.1 \
     && ./autogen.sh \
     && CXXFLAGS="-fno-delete-null-pointer-checks" ./configure --disable-shared \
     && make \
@@ -90,7 +90,16 @@ RUN ln -s /usr/local/bin/python3 /usr/local/bin/python \
     && ln -s /usr/local/bin/idle3 /usr/bin/idle3 \
     && ln -s /usr/local/bin/idle3 /usr/bin/idle3.7
 
-RUN pip install --upgrade pip==18.1
+RUN pip install --upgrade pip==19.2.3
+
+RUN curl -L -o /tmp/get-poetry.py https://raw.githubusercontent.com/sdispater/poetry/0.12.7/get-poetry.py \
+    && python /tmp/get-poetry.py --yes --version 0.12.7 \
+    && rm -f /tmp/get-poetry.py \
+    && mv /root/.poetry /usr/local/lib/poetry \
+    && (echo 'python /usr/local/lib/poetry/bin/poetry "$@"' > /usr/local/bin/poetry) \
+    && chmod +x /usr/local/bin/poetry \
+    && ln -s /usr/local/bin/poetry /usr/bin/poetry \
+    && poetry config settings.virtualenvs.create 0
 
 ADD utils/nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 ADD utils/init.d/nginx /etc/init.d/nginx
@@ -100,6 +109,13 @@ ADD utils/vimrc/vimrc /root/.vimrc
 ADD utils/sshconfig/config /root/.ssh/config
 ADD utils/utils/start-service /bin/start-service
 RUN chmod +x /etc/init.d/nginx /bin/start-service
+
+RUN mkdir -p /etc/security
+RUN echo '' >> /etc/security/limits.conf
+RUN echo '* hard core 0' >> /etc/security/limits.conf
+RUN echo '* soft core 0' >> /etc/security/limits.conf
+RUN echo '' >> /etc/sysctl.conf
+RUN echo 'fs.suid_dumpable=0' >> /etc/sysctl.conf
 
 RUN service nginx start
 EXPOSE 80
